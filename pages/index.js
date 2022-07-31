@@ -1,16 +1,33 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import Layout from '../components/Layout'
+import { Card, CardActionArea, CardMedia, Grid, Typography, CardContent, CardActions, Button } from '@material-ui/core'
+import data from '../utils/data'
 
 export default function Home() {
   return (
     <Layout>
       <h1>Product</h1>
-      <ul>
-        <li>Product 1</li>
-        <li>Product 2</li>
-        <li>Product 3</li>
-      </ul>
+      <Grid container spacing={3}>
+        {data.products.map((product) => (
+          <Grid item xs={12} sm={6} md={4} key={product.name}>
+            <Card>
+              <CardActionArea>  {/* This is the area that will be clickable */}
+                <CardMedia 
+                  component="img"
+                  image={product.image}
+                  title={product.title}
+                />
+                <CardContent>
+                  <Typography>{product.name}</Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Typography>$ {product.price}</Typography>
+                <Button size="small" color="primary">Add to Cart</Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </Layout>
   )
 }
